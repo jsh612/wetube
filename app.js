@@ -3,17 +3,12 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import coockieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import { userRouter } from './router';
+
 const app = express()
 
-const PORT = 4000;
 
-const handleListening = () => {
-    console.log(`Listening on Http://localhost:${PORT}`);
-}
-
-const handleHoem = (req, res) => {
-    res.send('Hello from home');
-}
+const handleHoem = (req, res) => res.send('Hello from home');
 
 const handleProfile = (req, res) => res.send('You are on my profile');
 
@@ -27,7 +22,7 @@ app.use(bodyParser.json());
 
 
 app.get('/', handleHoem); // 해당 path에서만 미들웨어 자곧ㅇ
-
 app.get('/profile', handleProfile);
+app.use('/user', userRouter);
 
-app.listen(PORT, handleListening);
+export default app;
