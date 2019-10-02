@@ -1,4 +1,8 @@
 import express from 'express';
+import morgan from 'morgan';
+import helmet from 'helmet';
+import coockieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 const app = express()
 
 const PORT = 4000;
@@ -13,14 +17,16 @@ const handleHoem = (req, res) => {
 
 const handleProfile = (req, res) => res.send('You are on my profile');
 
-const betweenHome = (req, res, next) => {
-    console.log('I am beteen');
-    next()//next를 통해 다음 미들웨어로 넘긴다.   
-}
+app.use(morgan('dev'));
+app.use(helmet());
+app.use(coockieParser());
+//로그인 등 문자를 처리할때 body-parser의 urlencoded 메소드 이용
+app.use(bodyParser.urlencoded({extended: false}));
+//json 데이터 처리를 위해 body-parser의 json 메소드 이용
+app.use(bodyParser.json());
 
-app.use(betweenHome)//모든 path에서 미들웨어 작동
 
-app.get('/', betweenHome, handleHoem); // 해당 path에서만 미들웨어 자곧ㅇ
+app.get('/', handleHoem); // 해당 path에서만 미들웨어 자곧ㅇ
 
 app.get('/profile', handleProfile);
 
