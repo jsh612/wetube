@@ -4,9 +4,9 @@ block content
   .join
     .form-container
       form(action=routes.join, method="post")
-        input(type="text", name="name", placeholder="Full name")
-        input(type="email", name="email", placeholder="Email")
-        input(type="password", name="password", placeholder="Passowrd")
-        input(type="password", name="password2", placeholder="Verify Passowrd")
+        input(type="text", name="name", placeholder="Full name", required=true)
+        input(type="email", name="email", placeholder="Email", required=true)
+        input(type="password", name="password", placeholder="Passowrd", required=true)
+        input(type="password", name="password2", placeholder="Verify Passowrd", required=true)
         input(type="submit", value="Join now")
       include ./partials/socialLogin.pug
