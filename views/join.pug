@@ -2,11 +2,11 @@ extends layouts/main
 
 block content
   .join
-    .form__container
-      form(action="/login", method="post")
+    .form-container
+      form(action=routes.join, method="post")
         input(type="text", name="name", placeholder="Full name")
         input(type="email", name="email", placeholder="Email")
         input(type="passowrd", name="passowrd", placeholder="Passowrd")
         input(type="passowrd", name="passowrd2", placeholder="Verify Passowrd")
         input(type="submit", value="Join now")
-    include ./partials/socialLogin.pug
+      include ./partials/socialLogin.pug
