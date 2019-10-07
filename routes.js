@@ -1,4 +1,5 @@
 import app from "./app";
+import { videoDetail } from "./controllers/videoController";
 
 //- 이곳에 Router들이 사용 할 수 있도록 url들을 모아둔다
 //- router들은 이곳에서 url을 가져다 쓴다.
@@ -37,13 +38,25 @@ const routes = {
     search: SEARCH,
     //users
     users: USERS,
-    userDetail: USER_DETAIL,
+    userDetail: (id) => {
+        if (id) {
+            return `/users/${id}`
+        } else {
+            return USER_DETAIL
+        }
+    },
     editProfile: EDIT_PROFILE,
     changePassword: CHANGE_PASSWORD,
     //videos
     videos: VIDEOS,
     upload: UPLOAD,
-    videoDetail: VIDEO_DETAIL,
+    videoDetail: (id) => {
+        if (id) {
+            return `/videos/${id}`;
+        } else {
+            return videoDetail;
+        }
+    },
     editVideo: EDIT_VIDEO,
     deleteVideo: DELETE_VIDEO
 }
