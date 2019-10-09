@@ -22,6 +22,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 //json 데이터 처리를 위해 body-parser의 json 메소드 이용
 app.use(bodyParser.json());
 
+//접속 주소가 /uploads일 경우  기본 경로를 uploads 디렉토리로 한다.
+app.use('/uploads',express.static('uploads'));
+
 app.use(localsMiddleware)//위치 중요(적용하고자하는 router 전에 위치)
 
 app.use(routes.home, globalRouter);
