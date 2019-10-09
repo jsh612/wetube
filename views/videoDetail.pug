@@ -4,7 +4,7 @@ block content
   .video__palyer
     video(src=`/${video.fileUrl}`, controls=true, preload=auto)
   .video__info
-    a(href=routes.editVideo) Edit video
+    a(href=routes.editVideo(video.id)) Edit video
     h5.video__title=video.title
     span.videp__viesw=video.views
     p.vidoe__description=video.description
