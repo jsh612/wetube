@@ -1,4 +1,7 @@
-import routes from "./routes";
+import routes from './routes';
+import multer from 'multer';
+
+const multerVideo = multer({ dest: 'videos/' });
 
 export const localsMiddleware = (req, res, next) => {
   //-res.locals.변수명
@@ -13,3 +16,6 @@ export const localsMiddleware = (req, res, next) => {
   }
   next()
 }
+
+//'videoFile' : upload.pug의 input 태그의 name
+export const uploadVideo = multerVideo.single('videoFile');
