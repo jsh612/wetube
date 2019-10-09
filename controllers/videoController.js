@@ -43,7 +43,22 @@ export const postUpload = async(req, res) => {
 
 
 
-export const videoDetail = (req, res) => res.render('videoDetail', {pageTitle: "video detail"});
+export const videoDetail = async(req, res) => {
+  console.log('req.params:::',req.params)
+  const {
+    params: {id}
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    // console.log('video:::', video)
+    res.render('videoDetail', {pageTitle: "video detail", video});  
+  } catch (error) {
+    console.log(error);
+    //해당 id를 갖는 비디오가 없는 경우 home로 이동시킨다.
+    res.redirect(routes.home);
+  }
+  
+}
 
 export const editVideo = (req, res) => res.render('editVideo', {pageTitle: "edit video"});
 
