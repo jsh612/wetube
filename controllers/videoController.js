@@ -4,7 +4,7 @@ import Video from "../models/Video";
 export const home = async (req, res) => {
   //  try/catch문으로 에러잡기
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ _id: -1 });
     res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     console.log(error);
@@ -19,7 +19,7 @@ export const search = (req, res) => {
   const {
     query: { term: searchingBy }
   } = req;
-  res.render("search", { pageTitle: "Search", searchingBy, videos });
+  res.render("search", { pageTitle: "Search", searchingBy });
 };
 
 export const getUpload = (req, res) => {
