@@ -51,14 +51,13 @@ export const videoDetail = async(req, res) => {
   try {
     const video = await Video.findById(id);
     // console.log('video:::', video)
-    res.render('videoDetail', {pageTitle: "video detail", video});  
+    res.render('videoDetail', {pageTitle: video.title, video});  
   } catch (error) {
     console.log(error);
     //해당 id를 갖는 비디오가 없는 경우 home로 이동시킨다.
     res.redirect(routes.home);
   }
-  
-}
+};
 
 export const getEditVideo = async(req, res) => {
   const {
@@ -71,7 +70,7 @@ export const getEditVideo = async(req, res) => {
       console.log('getEditVideo 에러', error);
       res.redirect(routes.home)
   }
-}
+};
 export const postEditVideo = async(req, res) => {
   const {
     params: {id},
@@ -84,7 +83,16 @@ export const postEditVideo = async(req, res) => {
       console.log('postEditVideo 에러', error);
       res.redirect(routes.home)
   }
-}
+};
 
-export const deleteVideo = (req, res) => res.render('deleteVideo', {pageTitle: "eelete video"});
+export const deleteVideo = async(req, res) => {
+  const {
+    params: {id}
+  } = req;
+  try {
+    await Video.findOneAndRemove(id);
+  } catch (error) {
+  }
+  res.redirect(routes.home);
+};
 
