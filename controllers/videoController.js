@@ -15,11 +15,22 @@ export const home = async (req, res) => {
 
 //- 위의 코드 설명
 //  pageTitle 변수가 home 템플릿으로 전달된다.
-export const search = (req, res) => {
+export const search = async (req, res) => {
   const {
     query: { term: searchingBy }
   } = req;
-  res.render("search", { pageTitle: "Search", searchingBy });
+  let videos = [];
+  try {
+    // $regex : 정규쵸현식으로 적용
+    //         따라서 아래의 find는 해당 searchingBy 단어가 포함된 title의 비디오를 찾게된다.
+    // $option : 정규표현식의 옵션을 설정 (ex/대소문자구분 없음 = "i")
+    videos = await Video.find({
+      title: { $regex: searchingBy, $options: "i" }
+    }).sort({ _id: -1 });
+  } catch (error) {
+    console.log("search Error", error);
+  }
+  res.render("search", { pageTitle: "Search", searchingBy, videos });
 };
 
 export const getUpload = (req, res) => {
@@ -88,6 +99,8 @@ export const deleteVideo = async (req, res) => {
   } = req;
   try {
     await Video.findOneAndRemove(id);
-  } catch (error) {}
+  } catch (error) {
+    console.log("deleteError", error);
+  }
   res.redirect(routes.home);
 };

@@ -5,5 +5,7 @@ block content
   .search__header
     h3 Searching for: #{searchingBy}
   .search__videos
+    if videos.length===0
+      h5 " #{searchingBy} " 라는 제목의 영상이 없습니다.
     each item in videos
       +videoBlock(item)
