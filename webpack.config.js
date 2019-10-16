@@ -11,11 +11,19 @@ const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js");
 const OUTPUT_DIR = path.join(__dirname, "static");
 
 const config = {
-  entry: ENTRY_FILE,
+  entry: ["@babel/polyfill", ENTRY_FILE],
   mode: MODE,
   module: {
     rules: [
       // 이곳에 로더를 등록한다.
+      {
+        test: /\.js?$/,
+        use: [
+          {
+            loader: "babel-loader"
+          }
+        ]
+      },
       {
         test: /\.scss?$/, // 해당 파일이 .scss 파일인지를 확인한다
         use: ExtractCSS.extract([
@@ -29,7 +37,7 @@ const config = {
           {
             loader: "postcss-loader", // 2.css를 받아서, 우리가 주는 plugin을 통해 css 변환
             options: {
-              plugin() {
+              plugins() {
                 return [autoprefixer({ browsers: "cover 99.5%" })];
               }
             }
