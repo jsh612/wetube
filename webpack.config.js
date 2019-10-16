@@ -1,5 +1,6 @@
 const path = require("path");
 const ExtractCSS = require("extract-text-webpack-plugin");
+const autoprefixer = require("autoprefixer");
 
 // package.json의 scripts 에서 명령어를 통해 process.env.WEBPACK_ENV; 값을
 // 수동으로 설정 했다.
@@ -18,16 +19,23 @@ const config = {
       {
         test: /\.scss?$/, // 해당 파일이 .scss 파일인지를 확인한다
         use: ExtractCSS.extract([
+          // - 아래의 로더들을 이용하여 css를 축출하여 특정 장소로 내보낸다.
           // - Loaders can be chained by passing multiple loaders,
           //   which will be applied from right to left (last to first configured).
+          //   (즉, 적용순서가 반대로 적용)
           {
-            loader: "css-loader"
+            loader: "css-loader" // 3.웹펙이 css를 이해
           },
           {
-            lader: "postcss-loader"
+            loader: "postcss-loader", // 2.css를 받아서, 우리가 주는 plugin을 통해 css 변환
+            options: {
+              plugin() {
+                return [autoprefixer({ browsers: "cover 99.5%" })];
+              }
+            }
           },
           {
-            lader: "sass-loader"
+            loader: "sass-loader" // 1.scss->css
           }
         ])
       }
@@ -35,8 +43,9 @@ const config = {
   },
   output: {
     path: OUTPUT_DIR,
-    filename: "[name].[format]"
-  }
+    filename: "[name].js"
+  },
+  plugins: [new ExtractCSS("styles.css")] // new ExtractCSS("저장할 파일이름")
 };
 
 module.exports = config;
