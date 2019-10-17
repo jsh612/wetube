@@ -11,7 +11,7 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.routes = routes;
   res.locals.user = {
     //가상의 데이터를 일단 만들어서 실험해본다.
-    isAuthenticate: true,
+    isAuthenticate: false,
     id: 1
   };
   next();
