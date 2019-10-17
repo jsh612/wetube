@@ -8,7 +8,7 @@ const MODE = process.env.WEBPACK_ENV;
 
 //  __dirname : 바로 현재 위치를 가리키는 Node.js의 전역 변수.
 const ENTRY_FILE = path.resolve(__dirname, "assets", "js", "main.js");
-const OUTPUT_DIR = path.join(__dirname, "static");
+const OUTPUT_DIR = path.join(__dirname, "static"); // 이름이 static인 디렉토리를 생성하여 그곳에 output 저장
 
 const config = {
   entry: ["@babel/polyfill", ENTRY_FILE],
@@ -35,7 +35,7 @@ const config = {
             loader: "css-loader" // 3.웹펙이 css를 이해
           },
           {
-            loader: "postcss-loader", // 2.css를 받아서, 우리가 주는 plugin을 통해 css 변환
+            loader: "postcss-loader", // 2. css를 받아서, 우리가 주는 plugin을 통해 plugin 적용후 css 반환
             options: {
               plugins() {
                 return [autoprefixer({ browsers: "cover 99.5%" })];
