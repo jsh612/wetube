@@ -38,7 +38,7 @@ const config = {
             loader: "postcss-loader", // 2. css를 받아서, 우리가 주는 plugin을 통해 plugin 적용후 css 반환
             options: {
               plugins() {
-                return [autoprefixer({ browsers: "cover 99.5%" })];
+                return [autoprefixer({ overrideBrowserslist: "cover 99.5%" })];
               }
             }
           },
