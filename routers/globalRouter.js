@@ -12,7 +12,10 @@ import {
 const globalRouter = express.Router();
 
 globalRouter.get(routes.join, getJoin);
-globalRouter.post(routes.join, postJoin);
+
+// postJoin으로 가입시키고, 가입이 성공하면 postLogin으로 로그인한다.
+// 즉, postJoin에서 user정보를 생성하여 해당 정보를 postLogin에 전달
+globalRouter.post(routes.join, postJoin, postLogin);
 
 globalRouter.get(routes.home, home);
 

@@ -3,6 +3,7 @@ import morgan from "morgan";
 import helmet from "helmet";
 import coockieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import passport from "passport";
 
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
@@ -10,6 +11,7 @@ import videoRouter from "./routers/videoRouter";
 
 import routes from "./routes";
 import { localsMiddleware } from "./middlewares";
+import "./passport";
 
 const app = express();
 
@@ -26,6 +28,9 @@ app.use(bodyParser.json());
 app.use("/uploads", express.static("uploads"));
 
 app.use("/static", express.static("static"));
+
+app.use(passport.initialize()); // passport가동
+app.use(passport.session()); // session을 저장
 
 app.use(localsMiddleware); //위치 중요(적용하고자하는 router 전에 위치)
 

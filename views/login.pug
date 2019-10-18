@@ -4,6 +4,6 @@ block content
   .form-container
     form(action=routes.login, method="post")
       input(type="email", name="email", placeholder="Email", required=true)
-      input(type="passowrd", name="passowrd", placeholder="Passowrd", required=true)
+      input(type="password", name="password", placeholder="Password", required=true)
       input(type="submit", value="Log in")
   include ./partials/socialLogin.pug

@@ -4,7 +4,7 @@ import User from "./models/User";
 
 // The createStrategy is responsible to setup passport-local LocalStrategy
 // with the correct options.
-passport.use(User.createStrategy);
+passport.use(User.createStrategy());
 
 //1.serialize(직렬화)
 //  : 객체를 전송가능한 형태로 변환 하는것
