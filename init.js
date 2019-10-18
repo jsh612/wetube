@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import app from "./app";
 import "./models/Video"; // 해당 mongoose Vidoe모델을 DB에 연결
 import "./models/Comment"; // 해당 mongoose Comment모델을 DB에 연결
+import "./models/User"; // 해당 mongoose User모델을 DB에 연결
 
 dotenv.config();
 
