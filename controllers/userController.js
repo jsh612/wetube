@@ -1,17 +1,26 @@
 import routes from "../routes";
+import User from "../models/User";
 
 export const getJoin = (req, res) => {
   res.render("join", { pageTitle: "Join" });
 };
 
-export const postJoin = (req, res) => {
+export const postJoin = async (req, res) => {
   const { name, email, password, password2 } = req.body;
   if (password !== password2) {
     res.status(400);
   } else {
-    //To Do: 유저등록
-    //To Do: 유저 로그인
-    res.redirect(routes.home);
+    try {
+      const user = await new User({
+        name,
+        email
+      });
+      await User.register(user, password);
+      //To Do: 유저 로그인
+      res.redirect(routes.home);
+    } catch (error) {
+      console.log(error);
+    }
   }
   res.render("join", { pageTitle: "Join" });
 };
