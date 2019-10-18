@@ -7,7 +7,7 @@ import "./models/User"; // 해당 mongoose User모델을 DB에 연결
 
 dotenv.config();
 
-const PORT = process.env.PORT || 4000;
+const { PORT } = process.env;
 
 const hadnleListening = () =>
   console.log(`✅Lisening on: http://localhost:${PORT}`);

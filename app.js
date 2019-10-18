@@ -4,6 +4,7 @@ import helmet from "helmet";
 import coockieParser from "cookie-parser";
 import bodyParser from "body-parser";
 import passport from "passport";
+import session from "express-session";
 
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
@@ -29,6 +30,14 @@ app.use("/uploads", express.static("uploads"));
 
 app.use("/static", express.static("static"));
 
+//session 설정하기
+app.use(
+  session({
+    secret: process.env.COOKIE_SECRET,
+    resave: false,
+    saveUninitialized: true
+  })
+);
 app.use(passport.initialize()); // passport가동
 app.use(passport.session()); // session을 저장
 
