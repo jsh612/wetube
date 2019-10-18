@@ -3,8 +3,10 @@ import morgan from "morgan";
 import helmet from "helmet";
 import coockieParser from "cookie-parser";
 import bodyParser from "body-parser";
+import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
@@ -15,6 +17,8 @@ import { localsMiddleware } from "./middlewares";
 import "./passport";
 
 const app = express();
+
+const CokieStore = MongoStore(session);
 
 app.use(helmet());
 app.set("view engine", "pug"); //pug 설정
@@ -35,7 +39,10 @@ app.use(
   session({
     secret: process.env.COOKIE_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+
+    // mongooseConnection: mongoose.connection: db와 저장소 연결
+    store: new CokieStore({ mongooseConnection: mongoose.connection })
   })
 );
 app.use(passport.initialize()); // passport가동

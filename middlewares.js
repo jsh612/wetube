@@ -14,5 +14,23 @@ export const localsMiddleware = (req, res, next) => {
   next();
 };
 
+// 로그인 되었있지 않은 경우 next() => 즉 로그인 하지않은 사람만 보겠다
+export const onlyPublic = (req, res, next) => {
+  if (req.user) {
+    res.redirect(routes.home);
+  } else {
+    next();
+  }
+};
+
+// 로그인 되어있을 경우 next() => 즉 로그인 한 사용자만 보겠다
+export const onlyPrivate = (req, res, next) => {
+  if (req.user) {
+    next();
+  } else {
+    res.redirect(routes.home);
+  }
+};
+
 //'videoFile' : upload.pug의 input 태그의 name
 export const uploadVideo = multerVideo.single("videoFile");
