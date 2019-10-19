@@ -1,14 +1,17 @@
 import express from "express";
 import routes from "../routes";
+import passport from "passport";
 import { home, search } from "../controllers/videoController";
 import {
   getJoin,
   postJoin,
   getLogin,
   postLogin,
-  logout
+  logout,
+  githubLogin,
+  postGithubLogIn
 } from "../controllers/userController";
-import { onlyPublic } from "../middlewares";
+import { onlyPublic, onlyPrivate } from "../middlewares";
 
 const globalRouter = express.Router();
 
@@ -23,7 +26,15 @@ globalRouter.get(routes.home, home);
 globalRouter.get(routes.login, onlyPublic, getLogin);
 globalRouter.post(routes.login, onlyPublic, postLogin);
 
-globalRouter.get(routes.logout, logout);
+globalRouter.get(routes.logout, onlyPrivate, logout);
 globalRouter.get(routes.search, search);
+
+globalRouter.get(routes.gitHub, githubLogin); // github에서 인증을 위해 사용자를 깃헙으로 보냄
+
+globalRouter.get(
+  routes.githubCallback,
+  passport.authenticate("github", { failureRedirect: "/login" }),
+  postGithubLogIn
+); // 깃헙에서 인증 후 app으로 돌아오면 이부분 실행
 
 export default globalRouter;

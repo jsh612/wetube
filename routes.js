@@ -18,6 +18,10 @@ const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
 
+// Github
+const GITHUB = "/auth/github";
+const GITHUB_CALLBACK = "/auth/github/callback";
+
 //Videos
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
@@ -42,6 +46,9 @@ const routes = {
   },
   editProfile: EDIT_PROFILE,
   changePassword: CHANGE_PASSWORD,
+  //github
+  gitHub: GITHUB,
+  githubCallback: GITHUB_CALLBACK,
   //videos
   videos: VIDEOS,
   upload: UPLOAD,

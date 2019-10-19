@@ -3,6 +3,7 @@ import passport from "passport";
 import GitHubStrategy from "passport-github";
 import User from "./models/User";
 import { githubLoginCallback } from "./controllers/userController";
+import routes from "./routes";
 
 // The createStrategy is responsible to setup passport-local LocalStrategy
 // with the correct options.
@@ -21,10 +22,14 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 passport.use(
-  new GitHubStrategy({
-    clientID: process.env.GH_ID,
-    clientSecret: process.env.GH_SECRET,
-    callbackURL: "http://localhost:4000/auth/github/callback"
-  }),
-  githubLoginCallback // 깃헙에서 인증 후 app으로 돌아왔을때 실행될 함수
+  // globalRouter.js 의 routes.github 에서 인증이 된경우 실행
+  // 이것을 통해 나의 app에서 해당사용자의 github계정 정보를 얻을 수 있다.
+  new GitHubStrategy(
+    {
+      clientID: process.env.GH_ID,
+      clientSecret: process.env.GH_SECRET,
+      callbackURL: `http://localhost:4000${routes.githubCallback}`
+    },
+    githubLoginCallback // 깃헙에서 인증 후 app으로 돌아왔을때 실행될 함수
+  )
 );

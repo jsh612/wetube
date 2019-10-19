@@ -43,6 +43,10 @@ export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
   console.log("인증콜백확인::::", accessToken, refreshToken, profile, cb);
 };
 
+export const postGithubLogIn = (req, res) => {
+  res.send(routes.home); // 로그인한 사용자를 home으로 보낸다.
+};
+
 export const logout = (req, res) => {
   req.logout(); // passport에서 제공하는 로그아웃
   res.redirect(routes.home);
