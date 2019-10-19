@@ -35,8 +35,16 @@ export const postLogin = passport.authenticate("local", {
   successRedirect: routes.home
 });
 
+// 깃헙에 인증 요청함수
+export const githubLogin = passport.authenticate("github");
+
+export const githubLoginCallback = (accessToken, refreshToken, profile, cb) => {
+  // 깃헙으로 부터 내 app에 돌아왔을 때 실행 될 함수
+  console.log("인증콜백확인::::", accessToken, refreshToken, profile, cb);
+};
+
 export const logout = (req, res) => {
-  //To Do: Process Log out
+  req.logout(); // passport에서 제공하는 로그아웃
   res.redirect(routes.home);
 };
 

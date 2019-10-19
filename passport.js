@@ -1,6 +1,8 @@
 // 인증관련 사항을 여기 작성
 import passport from "passport";
+import GitHubStrategy from "passport-github";
 import User from "./models/User";
+import { githubLoginCallback } from "./controllers/userController";
 
 // The createStrategy is responsible to setup passport-local LocalStrategy
 // with the correct options.
@@ -17,3 +19,12 @@ passport.use(User.createStrategy());
 //  : https://github.com/saintedlama/passport-local-mongoose#static-methods
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+passport.use(
+  new GitHubStrategy({
+    clientID: process.env.GH_ID,
+    clientSecret: process.env.GH_SECRET,
+    callbackURL: "http://localhost:4000/auth/github/callback"
+  }),
+  githubLoginCallback // 깃헙에서 인증 후 app으로 돌아왔을때 실행될 함수
+);
