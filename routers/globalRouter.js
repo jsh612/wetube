@@ -9,7 +9,8 @@ import {
   postLogin,
   logout,
   githubLogin,
-  postGithubLogIn
+  postGithubLogIn,
+  getMe
 } from "../controllers/userController";
 import { onlyPublic, onlyPrivate } from "../middlewares";
 
@@ -36,5 +37,7 @@ globalRouter.get(
   passport.authenticate("github", { failureRedirect: "/login" }),
   postGithubLogIn
 ); // 깃헙에서 인증 후 app으로 돌아오면 이부분 실행
+
+globalRouter.get(routes.me, getMe);
 
 export default globalRouter;

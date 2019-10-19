@@ -38,18 +38,17 @@ export const postLogin = passport.authenticate("local", {
 // 깃헙에 인증 요청함수
 export const githubLogin = passport.authenticate("github");
 
+// 깃헙으로 부터 내 app에 돌아왔을 때 실행 될 함수
 export const githubLoginCallback = async (
   accessToken,
   refreshToken,
   profile,
   cb //(cb는 passport에서 제공되는 콜백임.)
 ) => {
-  // 깃헙으로 부터 내 app에 돌아왔을 때 실행 될 함수
   const {
-    _json: { id, avatar_url, name, email }
+    _json: { id, avatar_url: avatarUrl, name, email }
   } = profile;
-  console.log("프로필::::", profile);
-  console.log("정보들::::", id, avatar_url, name, email);
+  console.log("프로필::::", avatarUrl);
   try {
     const user = await User.findOne({ email });
     if (user) {
@@ -62,7 +61,7 @@ export const githubLoginCallback = async (
     const newUser = await User.create({
       name,
       email,
-      avataUrl: avatar_url,
+      avatarUrl,
       githubId: id
     });
     return cb(null, newUser);
@@ -78,6 +77,10 @@ export const postGithubLogIn = (req, res) => {
 export const logout = (req, res) => {
   req.logout(); // passport에서 제공하는 로그아웃
   res.redirect(routes.home);
+};
+
+export const getMe = (req, res) => {
+  res.render("userDetail", { pageTitle: "User detail", user: req.user });
 };
 
 export const userDetail = (req, res) =>

@@ -9,7 +9,7 @@ export const localsMiddleware = (req, res, next) => {
   //  (즉, 전역범위에 변수를 추가하는 방법임)
   res.locals.siteName = "WeTube";
   res.locals.routes = routes;
-  res.locals.user = req.user || null; // passport가 로그인시 req에 user object를 올려준다.
+  res.locals.loggedUser = req.user || null; // passport가 로그인시 req에 user object를 올려준다.
   console.log("user::::", req.user);
   next();
 };

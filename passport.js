@@ -22,7 +22,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 passport.use(
-  // globalRouter.js 의 routes.github 에서 인증이 된경우 실행
+  // globalRouter.js 의 routes.github경로 에서 인증 요청이 된경우 실행
   // 이것을 통해 나의 app에서 해당사용자의 github계정 정보를 얻을 수 있다.
   new GitHubStrategy(
     {
