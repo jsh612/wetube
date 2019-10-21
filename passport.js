@@ -46,6 +46,8 @@ passport.use(
       callbackURL: `https://tiny-duck-58.localtunnel.me${routes.facebookCallback}`,
       profileFields: ["id", "displayName", "photos", "email"],
       scope: ["public_profile", "email"]
+      // profileFields: 페북 인증후, 페북에서 보내앤 profile 객체에 보이는 내용
+      // scope : 페북에 요청할 정보 기재
     },
     facebookLoginCallback
   )
