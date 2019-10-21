@@ -1,8 +1,12 @@
 // 인증관련 사항을 여기 작성
 import passport from "passport";
 import GitHubStrategy from "passport-github";
+import FacebookStrategy from "passport-facebook";
 import User from "./models/User";
-import { githubLoginCallback } from "./controllers/userController";
+import {
+  githubLoginCallback,
+  facebookLoginCallback
+} from "./controllers/userController";
 import routes from "./routes";
 
 // The createStrategy is responsible to setup passport-local LocalStrategy
@@ -31,5 +35,16 @@ passport.use(
       callbackURL: `http://localhost:4000${routes.githubCallback}`
     },
     githubLoginCallback // 깃헙에서 인증 후 app으로 돌아왔을때 실행될 함수
+  )
+);
+
+passport.use(
+  new FacebookStrategy(
+    {
+      clientID: process.env.FB_ID,
+      clientSecret: process.env.FB_SECRET,
+      callbackURL: `http://localhost:4000${routes.facebookCallback}`
+    },
+    facebookLoginCallback
   )
 );

@@ -23,6 +23,10 @@ const ME = "/me";
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
+//facebook
+const FB = "/auth/facebook";
+const FB_CALLBACK = "/auth/facebook/callback";
+
 //Videos
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
@@ -51,6 +55,9 @@ const routes = {
   //github
   gitHub: GITHUB,
   githubCallback: GITHUB_CALLBACK,
+  //facebook
+  facebook: FB,
+  facebookCallback: FB_CALLBACK,
   //videos
   videos: VIDEOS,
   upload: UPLOAD,
