@@ -127,7 +127,7 @@ export const userDetail = async (req, res) => {
     const user = await User.findById(id);
     res.render("userDetail", { pageTitle: "User detail", user });
   } catch (error) {
-    res.redirect(routes.hom);
+    res.redirect(routes.home);
   }
 };
 
@@ -141,14 +141,13 @@ export const postEditProfile = async (req, res) => {
   } = req;
   try {
     console.log("id111:::", req.user.id);
-    const user = await User.findByIdAndUpdate(req.user.id, {
+    await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
       avatarUrl: file ? file.path : req.user.avatarUrl // 새로운 파일 업로드가 없는 경우는 기존 아바타url 사용
     });
-    user.save();
-    console.log("id2222:::", req.user.id);
     res.redirect(routes.me);
+    console.log("id2222:::", req.user.id);
   } catch (error) {
     res.render("editProfile", { pageTitle: "Edit Profile" });
   }
