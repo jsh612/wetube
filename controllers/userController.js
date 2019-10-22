@@ -115,6 +115,7 @@ export const logout = (req, res) => {
 };
 
 export const getMe = (req, res) => {
+  console.log("req.user getmee::::", req.user);
   res.render("userDetail", { pageTitle: "User detail", user: req.user });
 };
 
@@ -129,7 +130,29 @@ export const userDetail = async (req, res) => {
     res.redirect(routes.hom);
   }
 };
-export const editProfile = (req, res) =>
+
+export const getEditProfile = (req, res) =>
   res.render("editProfile", { pageTitle: "edit profile" });
+
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file
+  } = req;
+  try {
+    console.log("id111:::", req.user.id);
+    const user = await User.findByIdAndUpdate(req.user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl // 새로운 파일 업로드가 없는 경우는 기존 아바타url 사용
+    });
+    user.save();
+    console.log("id2222:::", req.user.id);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.render("editProfile", { pageTitle: "Edit Profile" });
+  }
+};
+
 export const changePassword = (req, res) =>
   res.render("changePassword", { pageTitle: "Change password" });
