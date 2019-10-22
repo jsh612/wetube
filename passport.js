@@ -12,18 +12,6 @@ import routes from "./routes";
 // The createStrategy is responsible to setup passport-local LocalStrategy
 // with the correct options.
 passport.use(User.createStrategy());
-//1.serialize(직렬화)
-//  : 객체를 전송가능한 형태로 변환 하는것
-//  : 여기서는 로그인이 성공하면, serializeUser 메서드를 이용하여 사용자 정보를 Session에 저장할 수 있다
-//2.deserialize(역직렬화)
-//  : 직렬화된 데이터를 원래의 객체형태로 되돌리는것
-//  : 여기선 쿠키를 서버에 보내 인증처리하려고 사용
-//3.User.serializeUser() // User.deserializeUser()
-//  : passport-local-mongoose의 메소드임.
-//  : https://github.com/saintedlama/passport-local-mongoose#static-methods
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
 passport.use(
   // globalRouter.js 의 routes.github경로 에서 인증 요청이 된경우 실행
@@ -52,3 +40,16 @@ passport.use(
     facebookLoginCallback
   )
 );
+
+//1.serialize(직렬화)
+//  : 객체를 전송가능한 형태로 변환 하는것
+//  : 여기서는 로그인이 성공하면, serializeUser 메서드를 이용하여 사용자 정보를 Session에 저장할 수 있다
+//2.deserialize(역직렬화)
+//  : 직렬화된 데이터를 원래의 객체형태로 되돌리는것
+//  : 여기선 쿠키를 서버에 보내 인증처리하려고 사용
+//3.User.serializeUser() // User.deserializeUser()
+//  : passport-local-mongoose의 메소드임.
+//  : https://github.com/saintedlama/passport-local-mongoose#static-methods
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());

@@ -40,8 +40,8 @@ export const githubLogin = passport.authenticate("github");
 
 // 깃헙으로 부터 내 app에 돌아왔을 때 실행 될 함수
 export const githubLoginCallback = async (
-  accessToken,
-  refreshToken,
+  _,
+  __,
   profile,
   cb //(cb는 passport에서 제공되는 콜백임.)
 ) => {
@@ -140,14 +140,13 @@ export const postEditProfile = async (req, res) => {
     file
   } = req;
   try {
-    console.log("id111:::", req.user.id);
+    console.log("name:::", name, "email:::", email);
     await User.findByIdAndUpdate(req.user.id, {
       name,
       email,
       avatarUrl: file ? file.path : req.user.avatarUrl // 새로운 파일 업로드가 없는 경우는 기존 아바타url 사용
     });
     res.redirect(routes.me);
-    console.log("id2222:::", req.user.id);
   } catch (error) {
     res.render("editProfile", { pageTitle: "Edit Profile" });
   }

@@ -38,8 +38,8 @@ app.use("/static", express.static("static"));
 app.use(
   session({
     secret: process.env.COOKIE_SECRET,
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
 
     // mongooseConnection: mongoose.connection: db와 저장소 연결
     store: new CokieStore({ mongooseConnection: mongoose.connection })
