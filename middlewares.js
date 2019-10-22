@@ -11,7 +11,7 @@ export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "WeTube";
   res.locals.routes = routes;
   res.locals.loggedUser = req.user || null; // passport가 로그인시 req에 user object를 올려준다.
-  console.log("user::::", req.user);
+  console.log("미들웨어 user.req::::", req.user);
   next();
 };
 

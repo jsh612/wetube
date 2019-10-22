@@ -45,9 +45,13 @@ export const postUpload = async (req, res) => {
     //Model.creat()
     fileUrl: path,
     title,
-    description
+    description,
+    creator: req.user.id
   });
+  req.user.videos.push(newVideo.id);
+  req.user.save();
   console.log("새로운비디오::::", newVideo);
+  console.log("user::::", req.user);
   res.redirect(routes.videoDetail(newVideo.id));
 };
 
@@ -57,8 +61,8 @@ export const videoDetail = async (req, res) => {
     params: { id }
   } = req;
   try {
-    const video = await Video.findById(id);
-    // console.log('video:::', video)
+    const video = await Video.findById(id).populate("creator");
+    console.log("video:::", video.creator.name);
     res.render("videoDetail", { pageTitle: video.title, video });
   } catch (error) {
     console.log(error);
