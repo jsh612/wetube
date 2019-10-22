@@ -1,13 +1,21 @@
 extends layouts/main
+include mixins/videoBlock
 
 block content
   .user-profile
     .user-profile__header
+      ////`/${user.avatarUrl}` 에서 "/" 요거 주의 
+      //: 만약 생략시 최근 경로에서 이미지소스 주소가 뒤따라 붙어서
+      //  원하는 파일을 가져오지 못한다.
       img.u-avatar(src=`/${user.avatarUrl}`)
       h4.profile__username=user.name
-    if user.id === loggedUser.id
-      .user-profile__btns
-        a(href=`/users${routes.editProfile}`)
-          button ✏️ Edit Profile
-        a(href=`/users${routes.changePassword}`)
-          button 🔒 Change Password
+    if loggedUser
+      if user.id === loggedUser.id
+        .user-profile__btns
+          a(href=`/users${routes.editProfile}`)
+            button ✏️ Edit Profile
+          a(href=`/users${routes.changePassword}`)
+            button 🔒 Change Password
+    .home-videos
+      each item in user.videos 
+        +videoBlock(item)

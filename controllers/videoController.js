@@ -77,7 +77,16 @@ export const getEditVideo = async (req, res) => {
   } = req;
   try {
     const video = await Video.findById(id);
-    res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    // if (String(video.creator) !== req.user.id) {
+    if (!video.creator.equals(req.user.id)) {
+      // video.creator = populate 하지 않앗으므로, 작성자의 object id 임.
+      console.log("video.creator:::", typeof video.creator); // type = object
+      console.log("req.user.id:::", typeof req.user.id); // type = String
+      // 둘의 타입이 달라서 바로 !== 비교 불가
+      throw Error();
+    } else {
+      res.render("editVideo", { pageTitle: `Edit ${video.title}`, video });
+    }
   } catch (error) {
     console.log("getEditVideo 에러", error);
     res.redirect(routes.home);
@@ -102,7 +111,12 @@ export const deleteVideo = async (req, res) => {
     params: { id }
   } = req;
   try {
-    await Video.findOneAndRemove(id);
+    const video = await Video.findById(id);
+    if (!video.creator.equals(req.user.id)) {
+      throw Error();
+    } else {
+      await Video.findOneAndRemove({ _id: id });
+    }
   } catch (error) {
     console.log("deleteError", error);
   }
