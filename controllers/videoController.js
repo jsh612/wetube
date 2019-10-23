@@ -48,7 +48,7 @@ export const postUpload = async (req, res) => {
     description,
     creator: req.user.id
   });
-  req.user.videos.push(newVideo.id);
+  req.user.videos.unshift(newVideo.id);
   req.user.save();
   console.log("새로운비디오::::", newVideo);
   console.log("user::::", req.user);
@@ -116,6 +116,9 @@ export const deleteVideo = async (req, res) => {
       throw Error();
     } else {
       await Video.findOneAndRemove({ _id: id });
+      req.user.videos.pull(id);
+      req.user.save();
+      console.log("============", req.user.videos);
     }
   } catch (error) {
     console.log("deleteError", error);
