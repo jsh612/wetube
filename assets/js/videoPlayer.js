@@ -1,8 +1,10 @@
 const videoContainer = document.querySelector("#jsVideoPlayer");
 //#jsVideoPlayer 내부의 video 선택
 const videoPlayer = document.querySelector("#jsVideoPlayer video");
+
 const playBtn = document.querySelector("#jsPlayButton");
 const volumeBtn = document.querySelector("#jsVolumeBtn");
+const fullScrnBtn = document.querySelector("#jsFullScreen");
 
 function handlePlayClick() {
   if (videoPlayer.paused) {
@@ -24,9 +26,27 @@ function handleVolumeClick() {
   }
 }
 
+// - 전체화면 전환
+// : 전체화면 여부를 확인할 수 있는 속성은 제공 하지 않으므로, 이벤트를 삭제/추가하여
+//   해당 기능을 구현한다
+
+function exitFullScreen() {
+  fullScrnBtn.innerHTML = '<i class="fas fa-expand"></i>';
+  fullScrnBtn.addEventListener("click", goFullScreen);
+  document.webkitExitFullscreen();
+}
+
+function goFullScreen() {
+  videoContainer.webkitRequestFullscreen();
+  fullScrnBtn.innerHTML = '<i class="fas fa-compress"></i>';
+  fullScrnBtn.removeEventListener("click", goFullScreen);
+  fullScrnBtn.addEventListener("click", exitFullScreen);
+}
+
 function init() {
   playBtn.addEventListener("click", handlePlayClick);
   volumeBtn.addEventListener("click", handleVolumeClick);
+  fullScrnBtn.addEventListener("click", goFullScreen);
 }
 
 if (videoContainer) {
