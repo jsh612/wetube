@@ -80,8 +80,8 @@ export const getEditVideo = async (req, res) => {
     // if (String(video.creator) !== req.user.id) {
     if (!video.creator.equals(req.user.id)) {
       // video.creator = populate 하지 않앗으므로, 작성자의 object id 임.
-      console.log("video.creator:::", typeof video.creator); // type = object
-      console.log("req.user.id:::", typeof req.user.id); // type = String
+      // console.log("video.creator:::", typeof video.creator); // type = object
+      // console.log("req.user.id:::", typeof req.user.id); // type = String
       // 둘의 타입이 달라서 바로 !== 비교 불가
       throw Error();
     } else {
