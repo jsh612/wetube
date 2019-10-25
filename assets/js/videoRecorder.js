@@ -2,18 +2,35 @@ const recorderContainer = document.querySelector("#jsRecordContainer");
 const recordBtn = document.querySelector("#jsRecordBtn");
 const videoPreview = document.querySelector("#jsVideonPreview");
 
+let videoRecorder;
+
 const handleVideoData = event => {
   // startRecording에서 녹화되어 넘오언 video data를 다룬다.
-  console.log("handleVideoData 이벤트::::::", event);
+  console.log("handleVideoData 이벤트::::::", event); // BlobEvent 객체 출력
+  const { data: videoFile } = event;
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(videoFile); // videoFile(Blob객체)로부터 url을 만든다
+  link.download = "recorded.webm";
+  document.body.appendChild(link);
+  link.click(); //클릭한것으로 조작한다.
+  link.remove();
+};
+
+const stopRecording = () => {
+  videoRecorder.stop();
+  recordBtn.removeEventListener("click", stopRecording);
+  recordBtn.addEventListener("click", getVideo);
+  recordBtn.innerHTML = "Start recording";
 };
 
 const startRecording = stream => {
   // getVideo 로 가져온 비디오를 진짜로 record 하는 함수
 
-  const videoRecorder = new MediaRecorder(stream);
+  videoRecorder = new MediaRecorder(stream);
 
   videoRecorder.start();
   videoRecorder.addEventListener("dataavailable", handleVideoData);
+  recordBtn.addEventListener("click", stopRecording);
 
   console.log("videoRecorder 상태확인:::", videoRecorder);
 };
