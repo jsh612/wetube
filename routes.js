@@ -27,6 +27,10 @@ const GITHUB_CALLBACK = "/auth/github/callback";
 const FB = "/auth/facebook";
 const FB_CALLBACK = "/auth/facebook/callback";
 
+// API (유저가 접근가능한 url이 아니라 나와 서버간의 통신을 위한 route)
+const API = "/api";
+const REGISTER_VIEW = "/:id/view";
+
 //Videos
 const VIDEOS = "/videos";
 const UPLOAD = "/upload";
@@ -61,6 +65,9 @@ const routes = {
   //videos
   videos: VIDEOS,
   upload: UPLOAD,
+  //API
+  api: API,
+  registerView: REGISTER_VIEW,
   videoDetail: id => {
     if (id) {
       return `/videos/${id}`;
