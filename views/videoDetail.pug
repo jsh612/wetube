@@ -28,7 +28,10 @@ block content
             else
                 span.video__comment-number #{video.comments.length} comments
                 form.add__comment#jsAddComment
-                input(type="text", placeholder="Add a comment", name="comment")
+                    input(type="text", placeholder="Add a comment")
+                //- input 태그에 name을 불필요 , 추후 asxios를 이용해 해당 데이터를 보낼 것이기 떄문
+                //- (assets/js/addComment.js  에서 )
             ul.video__comments-list
                 each comment in video.comments
-                    span comment.text 
+                    li
+                        span=comment.text 
