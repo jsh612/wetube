@@ -30,6 +30,7 @@ const FB_CALLBACK = "/auth/facebook/callback";
 // API (유저가 접근가능한 url이 아니라 나와 서버간의 통신을 위한 route)
 const API = "/api";
 const REGISTER_VIEW = "/:id/view";
+const ADD_COMMENT = "/:id/comment";
 
 //Videos
 const VIDEOS = "/videos";
@@ -68,6 +69,7 @@ const routes = {
   //API
   api: API,
   registerView: REGISTER_VIEW,
+  addComment: ADD_COMMENT,
   videoDetail: id => {
     if (id) {
       return `/videos/${id}`;
