@@ -11,6 +11,8 @@ const increaseNumber = () => {
 };
 
 const addComment = comment => {
+  // 새로고침하지 않고 작성 즉시 댓글을 화면에 보여주기 위해 html 화면 수정
+  // (댓글작성 페이지를 위해 꼭 필요하지는 않지만, 새로고침 하기 귀찮아서)
   const li = document.createElement("li");
   const span = document.createElement("span");
   span.innerHTML = comment;
