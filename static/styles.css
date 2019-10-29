@@ -568,8 +568,15 @@ input[type="submit"] {
         -webkit-border-bottom-left-radius: 0px;
            -moz-border-radius-bottomleft: 0px;
                 border-bottom-left-radius: 0px; }
-        .video-detail__container .video__comments .video__comments-list li:not(:last-child) {
+        .video-detail__container .video__comments .video__comments-list li:nth-child(n) {
           margin-bottom: 15px; }
+        .video-detail__container .video__comments .video__comments-list li div {
+          text-align: left; }
+        .video-detail__container .video__comments .video__comments-list li button {
+          background-color: red;
+          width: 60px;
+          text-align: right;
+          margin-right: 0; }
 
 .user-profile {
   width: 100%;

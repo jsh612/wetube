@@ -32,10 +32,15 @@ block content
                     span#jsCommentNumber=video.comments.length
                     |  comments
             form.add__comment#jsAddComment
-                input(type="text", placeholder="Add a comment")
+                input(type="text", placeholder="로그인 후 작성가능")
             //- input 태그에 name을 불필요 , 추후 asxios를 이용해 해당 데이터를 보낼 것이기 떄문
             //- (assets/js/addComment.js  에서 )
             ul.video__comments-list#jsCommentList
                 each comment in video.comments.reverse()
+                    if( user &&user.id === comment.creator.id)
+                        a(href=`/api/${video.id}/comDelete/${comment.id}`)
+                            button#jsCommentDel="삭제" 
                     li
-                        span=comment.text 
+                        span
+                            div=comment.creator.name
+                            span=comment.text

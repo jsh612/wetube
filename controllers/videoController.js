@@ -64,9 +64,20 @@ export const videoDetail = async (req, res) => {
   try {
     const video = await Video.findById(id)
       .populate("creator")
-      .populate("comments");
-    console.log("video:::", video.creator.name);
-    res.render("videoDetail", { pageTitle: video.title, video });
+      .populate({
+        path: "comments",
+        model: "Comment",
+        populate: {
+          path: "creator",
+          model: "User"
+        }
+      });
+    // console.log("video:::", video.comments);
+    res.render("videoDetail", {
+      pageTitle: video.title,
+      video,
+      user: req.user
+    });
   } catch (error) {
     console.log(error);
     //해당 id를 갖는 비디오가 없는 경우 home로 이동시킨다.
@@ -166,6 +177,24 @@ export const postAddComment = async (req, res) => {
   } catch (error) {
     res.status(400);
   } finally {
+    res.redirect(routes.videoDetail(id));
+    res.end();
+  }
+};
+
+export const postDelComment = async (req, res) => {
+  const {
+    params: { id, id2 }
+  } = req;
+  try {
+    const video = await Video.findById(id);
+    await Comment.findOneAndRemove({ _id: id2 });
+    await video.comments.pull(id2);
+    video.save();
+  } catch (error) {
+    res.status(400);
+  } finally {
+    res.redirect(routes.videoDetail(id));
     res.end();
   }
 };

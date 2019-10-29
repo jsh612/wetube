@@ -53,8 +53,17 @@
         padding: 15px;
         border-radius: 20px;
         border-bottom-left-radius: 0px;
-        &:not(:last-child) {
+        &:nth-child(n) {
           margin-bottom: 15px;
+        }
+        div {
+          text-align: left;
+        }
+        button {
+          background-color: red;
+          width: 60px;
+          text-align: right;
+          margin-right: 0;
         }
       }
     }
