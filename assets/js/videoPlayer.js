@@ -1,4 +1,4 @@
-// import getBlobDuration from "get-blob-duration";
+import getBlobDuration from "get-blob-duration";
 
 const videoContainer = document.querySelector("#jsVideoPlayer");
 //#jsVideoPlayer 내부의 video 선택
@@ -92,10 +92,11 @@ async function setTotalTime() {
   // 웹캠에서 촬영된 영상 총시간 가져오기 (but,get-blob-duration 모듈 웹팩에서 오류 )
   // - Body.blob
   //   https://developer.mozilla.org/en-US/docs/Web/API/Body/blob
-  // const blob = await fetch(videoPlayer.src).then(response => response.blob());
-  // const duration = await getBlobDuration(blob);
-  // const totalTimeString = formatDate(duration);
-  const totalTimeString = formatDate(videoPlayer.duration);
+  const blob = await fetch(videoPlayer.src).then(response => response.blob());
+  const duration = await getBlobDuration(blob);
+  console.log("duration:::", duration);
+  const totalTimeString = formatDate(duration);
+  // const totalTimeString = formatDate(videoPlayer.duration);
 
   totalTime.innerHTML = totalTimeString;
   setInterval(getCurrentTime, 1000);
