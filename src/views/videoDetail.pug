@@ -1,0 +1,46 @@
+extends layouts/main
+include mixins/videoPlayer
+
+block content
+  .video-detail__container
+    .video__player
+        +videoPlayer({
+            src:video.fileUrl
+        })
+        .video__info
+            //동영상 작성자만 Edit video 보이도록 함.
+            if loggedUser
+                if video.creator.id === loggedUser.id
+                    a(href=routes.editVideo(video.id))
+                        button Edit video
+            h5.video__title=video.title
+            p.video__description=video.description
+            if video.views === 1
+                span.video__views 1 view
+            else 
+                span.video__views #{video.views} views
+            .video__author
+                |Uploaded by 
+                a(href=routes.userDetail(video.creator.id))=video.creator.name
+        .video__comments
+            if video.comments.length === 1
+                span.video__comment-number
+                    span#jsCommentNumber 1
+                    |  comment
+            else
+                span.video__comment-number
+                    span#jsCommentNumber=video.comments.length
+                    |  comments
+            form.add__comment#jsAddComment
+                input(type="text", placeholder="로그인 후 작성가능")
+            //- input 태그에 name을 불필요 , 추후 asxios를 이용해 해당 데이터를 보낼 것이기 떄문
+            //- (assets/js/addComment.js  에서 )
+            ul.video__comments-list#jsCommentList
+                each comment in video.comments.reverse()
+                    if( user &&user.id === comment.creator.id)
+                        a(href=`/api/${video.id}/comDelete/${comment.id}`)
+                            button#jsCommentDel="삭제" 
+                    li
+                        span
+                            div=comment.creator.name
+                            span=comment.text
