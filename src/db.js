@@ -7,7 +7,8 @@ mongoose.connect(
   process.env.MONGO_URL_PROD,
   {
     useNewUrlParser: true,
-    useFindAndModify: false
+    useFindAndModify: false,
+    useUnifiedTopology: true
   } //그냥 환결설정 일뿐. 중요X
 );
 

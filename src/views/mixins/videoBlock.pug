@@ -1,0 +1,12 @@
+mixin videoBlock(video={})
+  .videoBlock
+    a(href=routes.videoDetail(video.id))
+      //`/${video.fileUrl}` 에서 "/" 요거 주의 
+      //: 만약 생략시 최근 경로에서 비디오소스 주소가 뒤따라 붙어서
+      //  원하는 파일을 가져오지 못한다.
+      video.vedeoBlock__thumnail(src=video.fileUrl, controls=false, preload=auto)
+      h4.videoBlock__title=video.title
+      if video.views === 1
+        h6.videoBlock__views 1 view
+      else
+        h6.videoBlock__views #{video.views} views
