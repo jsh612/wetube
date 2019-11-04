@@ -36,7 +36,11 @@ globalRouter.get(routes.gitHub, githubLogin); // github에서 인증을 위해 �
 
 globalRouter.get(
   routes.githubCallback,
-  passport.authenticate("github", { failureRedirect: "/login" }),
+  passport.authenticate("github", {
+    failureRedirect: "/login",
+    successFlash: "Welcome",
+    failureflash: "Cant login. Check email and/or passworld"
+  }),
   postGithubLogIn
 ); // 깃헙에서 인증 후 app으로 돌아오면 이부분 실행
 

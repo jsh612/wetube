@@ -9,11 +9,7 @@ block content
       //  원하는 파일을 가져오지 못한다.
 
       //avauarUrl이 깃헙에서 가져오는 경우 http:// 로 시작하여 src에 "/"를 붙일경우 사진을 가져오지 못한다.
-      - const urlPath = user.avatarUrl[0]
-      if urlPath === "u"
-        img.u-avatar(src=`/${user.avatarUrl}`)
-      else
-        img.u-avatar(src=user.avatarUrl)
+      img.u-avatar(src=user.avatarUrl)
       h4.profile__username=user.name
     if loggedUser
       if user.id === loggedUser.id

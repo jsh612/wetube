@@ -51,6 +51,8 @@ app.use(
     store: new CokieStore({ mongooseConnection: mongoose.connection })
   })
 );
+
+app.use(flash()); // local messages를 사용할 수 있도록한다.(main.pug 참고/ ex] messages.error)
 app.use(passport.initialize()); // passport가동
 app.use(passport.session()); // session을 저장
 
