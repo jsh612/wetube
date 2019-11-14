@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "Seungho Jeon",
   "dependencies": {
+    "@babel/cli": "^7.6.4",
     "@babel/core": "^7.6.2",
     "@babel/node": "^7.6.2",
     "@babel/polyfill": "^7.6.0",
@@ -25,6 +26,7 @@
     "express-session": "^1.17.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "flash": "^1.1.0",
+    "forever": "^1.0.0",
     "get-blob-duration": "^1.1.0",
     "helmet": "^3.21.1",
     "mongoose": "^5.7.3",
@@ -41,8 +43,7 @@
     "pug": "^2.0.4",
     "sass-loader": "^8.0.0",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9",
-    "@babel/cli": "^7.6.4"
+    "webpack-cli": "^3.3.9"
   },
   "scripts": {
     "dev:server": "nodemon --exec babel-node src/init.js --delay 2 --ignore '.scss' --ignore 'static' ",
