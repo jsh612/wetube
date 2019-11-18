@@ -35,7 +35,7 @@ passport.use(
       clientSecret: process.env.GH_SECRET,
       callbackURL: `http://localhost:4000${routes.githubCallback}`
     },
-    githubLoginCallback // 깃헙에서 인증 후 app으로 돌아왔을때 실행될 함수
+    githubLoginCallback // 깃헙에서 인증 후 app으로 돌아왔을때 실행될 함수 , 깃헙에서 보내준 정보를 받는다
   )
 );
 
